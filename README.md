@@ -1,121 +1,125 @@
-# Caso de estudio · Datos para acción anticipatoria en Níger
+<p align="right">
+  <strong>English</strong> · <a href="./README_ES.md">Español</a>
+</p>
 
-> De fuentes humanitarias dispersas a una arquitectura de datos trazable, reproducible y preparada para análisis multifuente.
+# Case study · Data for anticipatory action in Niger
 
-**Autora:** Marta González Vázquez  
-**Contexto:** prácticas en Acción contra el Hambre España · Transformación Digital  
-**Rol:** análisis de datos, auditoría, diseño metodológico y desarrollo Python  
-**Estado:** piloto técnico de cinco fuentes cerrado · revisión metodológica pendiente  
-**Última actualización:** 14 de agosto de 2026  
-**Tecnologías:** Python · pandas · Jupyter · Power BI · DAX · Git · CSV/Parquet · APIs y datos abiertos
+> From fragmented humanitarian sources to a traceable, reproducible data architecture designed for multi-source analysis.
 
-## El proyecto en una frase
+**Author:** Marta González Vázquez  
+**Context:** internship at Action Against Hunger Spain · Digital Transformation  
+**Role:** data analysis, auditing, methodological design and Python development  
+**Status:** five-source technical pilot completed · methodological review pending  
+**Last updated:** 14 August 2026  
+**Technologies:** Python · pandas · Jupyter · Power BI · DAX · Git · CSV/Parquet · APIs and open data
 
-Diseñé y desarrollé una metodología para descubrir, auditar, transformar e integrar fuentes humanitarias y operacionales de Níger sin perder su granularidad, trazabilidad ni significado.
+## The project in one sentence
 
-Este caso demuestra mi forma de trabajar en la intersección entre **operaciones, calidad de datos, analítica y desarrollo Python**: comprender primero el problema real, formular reglas explícitas y automatizar únicamente aquello que puede validarse.
+I designed and developed a methodology to discover, audit, transform and integrate humanitarian and operational data sources for Niger without losing their granularity, traceability or meaning.
 
-## Resultado actual
+This case demonstrates how I work at the intersection of **operations, data quality, analytics and Python development**: understand the real problem first, formulate explicit rules and automate only what can be validated.
 
-El piloto integra metodológicamente cinco componentes —**Kobo, INFORM Risk, WFP Food Prices, INFORM Severity y Network Performance**— y está cerrado técnicamente en la rama `develop` del repositorio corporativo.
+## Current outcome
 
-| Evidencia de cierre | Resultado |
+The pilot methodologically integrates five components—**Kobo, INFORM Risk, WFP Food Prices, INFORM Severity and Network Performance**—and is technically complete in the `develop` branch of the organisation's private repository.
+
+| Completion evidence | Result |
 |---|---:|
-| Fuentes documentadas por capas | 5 |
-| Notebooks reproducibles | 7 (`00`–`06`) |
-| Notebooks ejecutados de principio a fin | 7/7 |
-| Errores de ejecución | 0 |
-| Celdas sin identificador | 0 |
-| Pruebas finales de `integration_analysis` | 15/15 |
-| Pruebas validadas en el conjunto del proyecto | 41/41 |
-| Commit metodológico integrado en `develop` | `3115c13` |
+| Sources documented by layer | 5 |
+| Reproducible notebooks | 7 (`00`–`06`) |
+| Notebooks executed end to end | 7/7 |
+| Execution errors | 0 |
+| Cells without identifiers | 0 |
+| Final `integration_analysis` tests | 15/15 |
+| Tests validated across the project | 41/41 |
+| Methodological commit merged into `develop` | `3115c13` |
 
-El cierre técnico no equivale todavía a validación metodológica por parte de los tutores ni a la existencia de un sistema de alerta temprana operativo.
+Technical completion does not yet mean methodological approval by the supervisors or the existence of an operational early-warning system.
 
-## Qué problema resuelve
+## Problem addressed
 
-Los datos relevantes para un posible sistema de acción anticipatoria están distribuidos entre portales abiertos, APIs, archivos Excel, encuestas Kobo y modelos semánticos de Power BI. Cada fuente utiliza geografías, periodos, granularidades y definiciones diferentes.
+Data relevant to a potential anticipatory-action system is distributed across open-data portals, APIs, Excel files, Kobo surveys and Power BI semantic models. Each source uses different geographies, time periods, granularities and definitions.
 
-Unirlas sin una metodología rigurosa puede:
+Combining them without a rigorous methodology can:
 
-- duplicar observaciones mediante relaciones muchos-a-muchos;
-- atribuir detalle subnacional a fuentes de alcance nacional;
-- mezclar fechas de publicación con periodos reales de referencia;
-- sumar indicadores con significados diferentes;
-- ocultar falta de cobertura mediante imputaciones no justificadas;
-- convertir asociaciones exploratorias en aparentes relaciones causales.
+- duplicate observations through many-to-many relationships;
+- attribute subnational detail to sources that only have national coverage;
+- confuse publication dates with actual reference periods;
+- add together indicators with different meanings;
+- hide coverage gaps through unjustified imputation;
+- turn exploratory associations into apparent causal relationships.
 
-La regla principal del proyecto es: **cada fuente conserva su grano nativo y solo se integra al nivel geográfico, temporal y semántico realmente compatible**.
+The project's main rule is: **each source retains its native grain and is integrated only at a genuinely compatible geographic, temporal and semantic level**.
 
-## Mi contribución
+## My contribution
 
-- Construcción de un **Data Landscape** con 170 registros y priorización de 14 fuentes lógicas para Core v1.
-- Evaluación de 78 parejas de compatibilidad entre fuentes.
-- Diseño inicial de 12 dimensiones y estructuras puente para futuras integraciones.
-- Desarrollo de pipelines Python reproducibles para INFORM Severity, INFORM Risk Níger y WFP Food Prices.
-- Auditoría de los modelos Power BI de Kobo y Network Performance.
-- Desarrollo y validación del piloto de cinco componentes, preservando Network e INFORM Severity como capas independientes cuando sus granos no permiten una unión directa.
-- Definición de reglas de calidad, granularidad, cardinalidad, cobertura y privacidad.
-- Creación de siete notebooks reproducibles, módulos reutilizables, pruebas automatizadas y trazabilidad de decisiones.
-- Preparación de una base metodológica para revisar la arquitectura postpiloto antes de construir Gold o ampliar fuentes.
+- Built a **Data Landscape** with 170 records and prioritised 14 logical sources for Core v1.
+- Assessed 78 source-pair compatibility combinations.
+- Designed an initial set of 12 dimensions and bridge structures for future integrations.
+- Developed reproducible Python pipelines for INFORM Severity, INFORM Risk Niger and WFP Food Prices.
+- Audited the Kobo and Network Performance Power BI models.
+- Developed and validated the five-component pilot, keeping Network and INFORM Severity as independent layers where their grain did not support a direct join.
+- Defined rules for quality, granularity, cardinality, coverage and privacy.
+- Created seven reproducible notebooks, reusable modules, automated tests and decision traceability.
+- Prepared a methodological foundation for reviewing the post-pilot architecture before building Gold or adding more sources.
 
-## Resultados verificables
+## Verifiable results
 
-### Data Landscape y diseño
+### Data Landscape and design
 
-| Indicador | Resultado |
+| Indicator | Result |
 |---|---:|
-| Registros catalogados | 170 |
-| Fuentes lógicas Core v1 | 14 |
-| Parejas de compatibilidad evaluadas | 78 |
-| Dimensiones y puentes propuestos | 12 |
+| Records catalogued | 170 |
+| Logical Core v1 sources | 14 |
+| Source-pair compatibility combinations assessed | 78 |
+| Proposed dimensions and bridges | 12 |
 
-### Fuentes trabajadas
+### Sources included
 
-| Componente | Resultado técnico | Uso validado en el piloto |
+| Component | Technical result | Validated use in the pilot |
 |---|---|---|
-| INFORM Global Crisis Severity | 92 recursos XLSX auditados y 89 periodos canónicos | Contexto longitudinal de crisis y periodo; sin desagregación territorial artificial |
-| INFORM Risk Níger 2024 | 8 Admin1, 67 Admin2 y 3.350 registros de indicadores | Contexto estructural histórico; integración compatible con 62/62 grupos Kobo |
-| WFP Food Prices Níger | 50.962 observaciones, 79 mercados, 10 productos; 1990-01 a 2026-06 | Silver validado y 79/79 mercados enlazados con geografía OCHA |
-| Kobo / Power BI | 6.374 entradas auditadas y 6.371 respuestas utilizables | 62 grupos analíticos; tres exclusiones técnicas documentadas |
-| Network Performance / Power BI | 1.976 snapshots y 7 comparaciones baseline–endline | Hecho operativo y contractual independiente, sin unión territorial artificial |
+| INFORM Global Crisis Severity | 92 XLSX resources audited and 89 canonical periods | Longitudinal crisis and period context; no artificial territorial disaggregation |
+| INFORM Risk Niger 2024 | 8 Admin1, 67 Admin2 and 3,350 indicator records | Historical structural context; compatible integration with 62/62 Kobo groups |
+| WFP Food Prices Niger | 50,962 observations, 79 markets and 10 commodities; 1990-01 to 2026-06 | Validated Silver layer and 79/79 markets linked to OCHA geography |
+| Kobo / Power BI | 6,374 entries audited and 6,371 usable responses | 62 analytical groups; three documented technical exclusions |
+| Network Performance / Power BI | 1,976 snapshots and 7 baseline–endline comparisons | Independent operational and contractual fact; no artificial territorial join |
 
-### Integración piloto Kobo–INFORM–WFP
+### Kobo–INFORM–WFP pilot integration
 
-| Control | Resultado |
+| Control | Result |
 |---|---:|
-| Respuestas Kobo utilizables | 6.371 |
-| Grupos analíticos Kobo | 62 |
-| Correspondencia con INFORM Risk | 62/62 |
-| Grupos con cobertura WFP contemporánea | 56/62 (90,323 %) |
-| Pares ADM2–mes con precio WFP contemporáneo | 22/25 (88,0 %) |
-| ADM2 con cobertura WFP contemporánea | 6/8 |
-| Mercados WFP con geografía OCHA | 79/79 |
+| Usable Kobo responses | 6,371 |
+| Kobo analytical groups | 62 |
+| Match with INFORM Risk | 62/62 |
+| Groups with contemporary WFP coverage | 56/62 (90.323%) |
+| ADM2–month pairs with contemporary WFP prices | 22/25 (88.0%) |
+| ADM2 units with contemporary WFP coverage | 6/8 |
+| WFP markets with OCHA geography | 79/79 |
 
-Las cifras expresan cobertura e interoperabilidad técnica. Los resultados son descriptivos y exploratorios: **no demuestran causalidad, no garantizan representatividad nacional y no generan alertas automáticas**.
+These figures describe technical coverage and interoperability. The results are descriptive and exploratory: **they do not demonstrate causality, guarantee national representativeness or generate automated alerts**.
 
-## Arquitectura metodológica
+## Methodological architecture
 
 ```mermaid
 flowchart LR
-    A["Fuentes internas y abiertas"] --> B["Bronze: origen y evidencia"]
-    B --> C["Silver: limpieza y calidad"]
-    C --> D["Piloto de cinco fuentes"]
-    D -. revisión postpiloto .-> E["Gold y marts"]
-    E -. evolución futura .-> F["Señales tempranas"]
+    A["Internal and open sources"] --> B["Bronze: origin and evidence"]
+    B --> C["Silver: cleaning and quality"]
+    C --> D["Five-source pilot"]
+    D -. post-pilot review .-> E["Gold and marts"]
+    E -. future evolution .-> F["Early signals"]
 ```
 
-| Capa | Contenido | Estado al 14/08/2026 |
+| Layer | Content | Status on 14 August 2026 |
 |---|---|---|
-| Bronze | Originales, metadatos, procedencia y fecha de descarga | Implementada por fuente |
-| Silver | Tipos, limpieza, claves, normalización y controles | Implementada y validada en el alcance del piloto |
-| Integración | Contratos, puentes y evidencias entre fuentes compatibles | Piloto de cinco fuentes cerrado técnicamente |
-| Gold | Hechos, dimensiones y agregaciones aprobadas | Pendiente de diseño postpiloto y revisión metodológica |
-| Marts | Vistas para análisis, BI o decisiones | Futuro; solo sobre una Gold validada |
+| Bronze | Source files, metadata, provenance and download date | Implemented by source |
+| Silver | Types, cleaning, keys, normalisation and controls | Implemented and validated within the pilot scope |
+| Integration | Contracts, bridges and evidence between compatible sources | Five-source pilot technically complete |
+| Gold | Approved facts, dimensions and aggregations | Pending post-pilot design and methodological review |
+| Marts | Views for analysis, BI or decisions | Future; only on a validated Gold layer |
 
-## Cómo está construido
+## How it is built
 
-La lógica estable se separa de la exploración:
+Stable logic is separated from exploration:
 
 ```text
 niger_anticipatory_action/
@@ -139,88 +143,88 @@ niger_anticipatory_action/
     └── docs/
 ```
 
-- Los notebooks se utilizan para descubrimiento, explicación y revisión.
-- Los módulos `src/` contienen contratos, reglas y evidencias reutilizables.
-- Los generadores reconstruyen los notebooks metodológicos.
-- Un ejecutor valida la serie completa de notebooks de principio a fin.
-- Las pruebas protegen decisiones geográficas, temporales, contractuales y de agregación.
-- Los datos sensibles y las exportaciones internas permanecen fuera del control de versiones.
+- Notebooks are used for discovery, explanation and review.
+- The `src/` modules contain reusable contracts, rules and evidence.
+- Generators rebuild the methodological notebooks.
+- A runner validates the complete notebook series from end to end.
+- Tests protect geographic, temporal, contractual and aggregation decisions.
+- Sensitive data and internal exports remain outside version control.
 
-## Validación reproducible
+## Reproducible validation
 
-La validación final del módulo `integration_analysis` ejecuta **15 pruebas** sobre estructura, contratos, métricas y reglas de integración. En el checkpoint global, las suites validadas del proyecto alcanzan **41/41 pruebas superadas**.
+The final validation of `integration_analysis` runs **15 tests** covering structure, contracts, metrics and integration rules. At the global checkpoint, the validated project suites reached **41/41 passing tests**.
 
-Entre los controles automatizados se encuentran:
+Automated controls include:
 
-1. conservación del número de filas y correcciones geográficas controladas;
-2. coherencia entre fecha, mes y periodo de referencia;
-3. tratamiento no aditivo de las poblaciones de referencia;
-4. retardos de precios basados en meses naturales exactos;
-5. correspondencias de mercados mediante nombres normalizados;
-6. cálculo del precio mensual mediante la mediana minorista entre mercados;
-7. validación de contratos y evidencias esperadas en los cinco componentes;
-8. comprobación de cifras de cierre y cobertura;
-9. ejecución completa de los siete notebooks sin errores ni celdas sin identificador.
+1. row-count preservation and controlled geographic corrections;
+2. consistency between date, month and reference period;
+3. non-additive treatment of reference populations;
+4. price lags based on exact calendar months;
+5. market matching through normalised names;
+6. monthly-price calculation using the retail median across markets;
+7. validation of expected contracts and evidence across all five components;
+8. verification of completion and coverage figures;
+9. end-to-end execution of all seven notebooks without errors or cells lacking identifiers.
 
-## Principios de calidad aplicados
+## Data-quality principles applied
 
-1. No inventar códigos ni correspondencias geográficas.
-2. No propagar valores nacionales a unidades subnacionales.
-3. No unir hechos de distinto grano sin una agregación explícita.
-4. No interpretar automáticamente todos los valores blancos como errores.
-5. No sumar variantes de indicadores sin validar previamente su definición.
-6. No imputar mercados, periodos o territorios sin evidencia.
-7. Conservar cuarentenas y decisiones de selección como parte de la auditoría.
-8. Diferenciar exploración, evidencia descriptiva, asociación y predicción.
+1. Do not invent geographic codes or matches.
+2. Do not propagate national values to subnational units.
+3. Do not join facts at different grains without an explicit aggregation.
+4. Do not automatically interpret every blank value as an error.
+5. Do not combine indicator variants before validating their definitions.
+6. Do not impute markets, periods or territories without evidence.
+7. Preserve quarantines and selection decisions as part of the audit trail.
+8. Distinguish exploration, descriptive evidence, association and prediction.
 
-## Decisiones que muestran criterio profesional
+## Decisions that demonstrate professional judgement
 
-- INFORM Severity se utiliza como contexto de crisis y periodo, no como detalle territorial dentro de Níger.
-- INFORM Risk 2024 se trata como contexto estructural histórico, no como covariable mensual contemporánea.
-- La ausencia de precios contemporáneos en Tahoua y Tillia se mantiene visible y no se corrige mediante imputación.
-- Network Performance conserva su grano operativo y contractual; no se desagrega artificialmente a ADM1 o ADM2.
-- Los microdatos Kobo, PBIX internos, credenciales y resultados sensibles no se publican.
-- El piloto no se presenta como un sistema de alerta temprana operativo ni como un modelo predictivo terminado.
-- La construcción de Gold y la incorporación de una sexta fuente se posponen hasta revisar granos, claves, agregaciones, puentes geográficos y semántica.
+- INFORM Severity is used as crisis and period context, not as territorial detail within Niger.
+- INFORM Risk 2024 is treated as historical structural context, not as a contemporary monthly covariate.
+- The absence of contemporary prices in Tahoua and Tillia remains visible and is not corrected through imputation.
+- Network Performance retains its operational and contractual grain; it is not artificially disaggregated to ADM1 or ADM2.
+- Kobo microdata, internal PBIX files, credentials and sensitive results are not published.
+- The pilot is not presented as an operational early-warning system or a completed predictive model.
+- Gold construction and the addition of a sixth source are postponed until grains, keys, aggregations, geographic bridges and semantics have been reviewed.
 
-## Privacidad y propiedad del proyecto
+## Privacy and project ownership
 
-El proyecto operativo se desarrolla en un repositorio privado de **Acción contra el Hambre España**. Este README es una presentación de portfolio y no replica código, microdatos, credenciales, modelos Power BI ni exportaciones internas de la organización.
+The operational project is developed in a private repository owned by **Action Against Hunger Spain**. This README is a portfolio presentation and does not reproduce organisational code, microdata, credentials, Power BI models or internal exports.
 
-La publicación personal se limita a metodología, arquitectura, resultados agregados y aprendizajes técnicos que pueden mostrarse sin comprometer información confidencial. Antes de ampliar el contenido público deberán revisarse con los responsables del proyecto los límites de publicación aplicables.
+The personal publication is limited to methodology, architecture, aggregated results and technical learning that can be shared without compromising confidential information. Before expanding the public content, the applicable publication boundaries should be reviewed with the project owners.
 
-## Estado y próximos pasos
+## Status and next steps
 
-- [x] Construir el Data Landscape y definir las 14 fuentes lógicas de Core v1.
-- [x] Desarrollar los pipelines reproducibles incluidos en el piloto.
-- [x] Auditar Kobo y Network Performance.
-- [x] Construir y validar las integraciones Kobo–INFORM y WFP–Kobo–INFORM.
-- [x] Documentar por capas Kobo, INFORM Risk, WFP, INFORM Severity y Network.
-- [x] Crear y ejecutar los siete notebooks metodológicos reproducibles.
-- [x] Superar las 15 pruebas finales de `integration_analysis` y cerrar el piloto en `develop`.
-- [ ] Obtener la revisión metodológica de los tutores.
-- [ ] Decidir qué producto analítico y qué decisiones operativas debe soportar Core v1.
-- [ ] Diseñar la arquitectura postpiloto y consolidar dimensiones, hechos, claves y puentes comunes.
-- [ ] Construir Gold y marts analíticos cuando la semántica esté validada.
-- [ ] Priorizar la siguiente fuente, previsiblemente Cadre Harmonisé/IPC.
-- [ ] Incorporar progresivamente otras fuentes compatibles sin rehacer los ETL ya terminados.
+- [x] Build the Data Landscape and define the 14 logical Core v1 sources.
+- [x] Develop the reproducible pipelines included in the pilot.
+- [x] Audit Kobo and Network Performance.
+- [x] Build and validate the Kobo–INFORM and WFP–Kobo–INFORM integrations.
+- [x] Document Kobo, INFORM Risk, WFP, INFORM Severity and Network by layer.
+- [x] Create and execute the seven reproducible methodological notebooks.
+- [x] Pass the 15 final `integration_analysis` tests and close the pilot in `develop`.
+- [ ] Obtain methodological review from the supervisors.
+- [ ] Decide which analytical product and operational decisions Core v1 should support.
+- [ ] Design the post-pilot architecture and consolidate common dimensions, facts, keys and bridges.
+- [ ] Build Gold and analytical marts once the semantics have been validated.
+- [ ] Prioritise the next source, most likely Cadre Harmonisé/IPC.
+- [ ] Progressively incorporate other compatible sources without rebuilding the completed ETLs.
 
-## Qué demuestra este caso
+## What this case demonstrates
 
-Este trabajo no parte únicamente de una técnica o de un notebook. Parte de una pregunta operativa y construye alrededor de ella un sistema de decisiones verificables.
+This work does not start from a single technique or notebook. It starts from an operational question and builds a system of verifiable decisions around it.
 
-Demuestra capacidad para:
+It demonstrates my ability to:
 
-- entender modelos, fuentes y restricciones complejas;
-- traducir necesidades funcionales a reglas de datos;
-- programar pipelines y controles reproducibles en Python;
-- auditar calidad, claves, cardinalidades y cobertura;
-- diseñar integraciones sin falsear el significado de los datos;
-- convertir decisiones metodológicas en pruebas y evidencias repetibles;
-- comunicar límites, riesgos y estado real con claridad;
-- conectar experiencia senior en IT y operaciones con analítica y ciencia de datos aplicada.
+- understand complex models, sources and constraints;
+- translate functional needs into data rules;
+- build reproducible Python pipelines and controls;
+- audit quality, keys, cardinalities and coverage;
+- design integrations without distorting the meaning of the data;
+- turn methodological decisions into repeatable tests and evidence;
+- communicate limitations, risks and actual status clearly;
+- connect senior IT and operations experience with analytics and applied data science.
 
 ---
 
 **Marta González Vázquez**  
-Senior IT & Operations · Data Analytics · Data Quality · Python · Power BI
+Senior IT & Operations · Data Analytics · Data Quality · Python · SQL · Power BI
