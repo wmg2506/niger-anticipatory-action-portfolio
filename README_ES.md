@@ -9,8 +9,8 @@
 **Autora:** Marta González Vázquez  
 **Contexto:** prácticas en Acción contra el Hambre España · Transformación Digital  
 **Rol:** análisis de datos, auditoría, diseño metodológico y desarrollo Python  
-**Estado:** piloto técnico de cinco fuentes cerrado · revisión metodológica pendiente  
-**Última actualización:** 14 de agosto de 2026  
+**Estado:** piloto técnico de cinco fuentes cerrado · contrato de alcance geográfico de INFORM Severity validado · revisión metodológica pendiente  
+**Última actualización:** 15 de septiembre de 2026  
 **Tecnologías:** Python · pandas · Jupyter · Power BI · DAX · Git · CSV/Parquet · APIs y datos abiertos
 
 ## El proyecto en una frase
@@ -32,6 +32,9 @@ El piloto integra metodológicamente cinco componentes —**Kobo, INFORM Risk, W
 | Celdas sin identificador | 0 |
 | Pruebas finales de `integration_analysis` | 15/15 |
 | Pruebas validadas en el conjunto del proyecto | 41/41 |
+| Controles de alcance geográfico de INFORM Severity | 17/17 |
+| Regla de asignación | `value_propagated=False` · `allocation_method=NONE` |
+| Cambio de alcance geográfico integrado en `develop` | PR #8 · 7 de septiembre de 2026 |
 | Commit metodológico integrado en `develop` | `3115c13` |
 
 El cierre técnico no equivale todavía a validación metodológica por parte de los tutores ni a la existencia de un sistema de alerta temprana operativo.
@@ -78,11 +81,22 @@ La regla principal del proyecto es: **cada fuente conserva su grano nativo y sol
 
 | Componente | Resultado técnico | Uso validado en el piloto |
 |---|---|---|
-| INFORM Global Crisis Severity | 92 recursos XLSX auditados y 89 periodos canónicos | Contexto longitudinal de crisis y periodo; sin desagregación territorial artificial |
+| INFORM Global Crisis Severity | 92 recursos XLSX auditados, 89 periodos canónicos y `geographic_scope_v1` validado con 17/17 controles | Los valores regionales pueden asociarse a unidades Admin2 únicamente como contexto regional; no se propagan ni se presentan como mediciones Admin2 |
 | INFORM Risk Níger 2024 | 8 Admin1, 67 Admin2 y 3.350 registros de indicadores | Contexto estructural histórico; integración compatible con 62/62 grupos Kobo |
 | WFP Food Prices Níger | 50.962 observaciones, 79 mercados, 10 productos; 1990-01 a 2026-06 | Silver validado y 79/79 mercados enlazados con geografía OCHA |
 | Kobo / Power BI | 6.374 entradas auditadas y 6.371 respuestas utilizables | 62 grupos analíticos; tres exclusiones técnicas documentadas |
 | Network Performance / Power BI | 1.976 snapshots y 7 comparaciones baseline–endline | Hecho operativo y contractual independiente, sin unión territorial artificial |
+
+### Actualización del alcance geográfico de INFORM Severity
+
+El 7 de septiembre de 2026 se validó el contrato `geographic_scope_v1` y se integró en `develop` mediante la PR #8. El contrato explicita el significado geográfico sin publicar código corporativo ni datos de origen:
+
+- cada valor de severidad conserva su alcance nativo nacional o regional;
+- una unidad Admin2 puede referenciar su región superior para recuperar contexto regional, pero el valor continúa siendo una medición regional;
+- ningún valor se asigna, copia ni convierte en una observación Admin2 (`value_propagated=False`; `allocation_method=NONE`);
+- se superaron 17/17 controles de integridad y contrato.
+
+Esto permite utilizar el contexto regional en análisis Admin2 sin crear una falsa precisión territorial.
 
 ### Integración piloto Kobo–INFORM–WFP
 
@@ -109,7 +123,7 @@ flowchart LR
     E -. evolución futura .-> F["Señales tempranas"]
 ```
 
-| Capa | Contenido | Estado al 14/08/2026 |
+| Capa | Contenido | Estado al 15/09/2026 |
 |---|---|---|
 | Bronze | Originales, metadatos, procedencia y fecha de descarga | Implementada por fuente |
 | Silver | Tipos, limpieza, claves, normalización y controles | Implementada y validada en el alcance del piloto |
@@ -169,7 +183,7 @@ Entre los controles automatizados se encuentran:
 ## Principios de calidad aplicados
 
 1. No inventar códigos ni correspondencias geográficas.
-2. No propagar valores nacionales a unidades subnacionales.
+2. No propagar valores nacionales o regionales a unidades geográficas de nivel inferior.
 3. No unir hechos de distinto grano sin una agregación explícita.
 4. No interpretar automáticamente todos los valores blancos como errores.
 5. No sumar variantes de indicadores sin validar previamente su definición.
@@ -179,7 +193,7 @@ Entre los controles automatizados se encuentran:
 
 ## Decisiones que muestran criterio profesional
 
-- INFORM Severity se utiliza como contexto de crisis y periodo, no como detalle territorial dentro de Níger.
+- Los valores regionales de INFORM Severity están disponibles en análisis Admin2 únicamente como contexto de la región superior; siguen siendo mediciones regionales y nunca se asignan ni propagan a Admin2.
 - INFORM Risk 2024 se trata como contexto estructural histórico, no como covariable mensual contemporánea.
 - La ausencia de precios contemporáneos en Tahoua y Tillia se mantiene visible y no se corrige mediante imputación.
 - Network Performance conserva su grano operativo y contractual; no se desagrega artificialmente a ADM1 o ADM2.
@@ -200,6 +214,7 @@ La publicación personal se limita a metodología, arquitectura, resultados agre
 - [x] Auditar Kobo y Network Performance.
 - [x] Construir y validar las integraciones Kobo–INFORM y WFP–Kobo–INFORM.
 - [x] Documentar por capas Kobo, INFORM Risk, WFP, INFORM Severity y Network.
+- [x] Validar `geographic_scope_v1` para INFORM Severity (17/17 controles) e integrar la PR #8 en `develop` sin propagar valores regionales a Admin2.
 - [x] Crear y ejecutar los siete notebooks metodológicos reproducibles.
 - [x] Superar las 15 pruebas finales de `integration_analysis` y cerrar el piloto en `develop`.
 - [ ] Obtener la revisión metodológica de los tutores.
@@ -228,3 +243,4 @@ Demuestra capacidad para:
 
 **Marta González Vázquez**  
 Senior IT & Operations · Data Analytics · Data Quality · Python · Power BI
+
