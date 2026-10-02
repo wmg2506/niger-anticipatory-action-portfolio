@@ -9,7 +9,7 @@
 **Author:** Marta González Vázquez  
 **Context:** internship at Action Against Hunger Spain · Digital Transformation  
 **Role:** data analysis, auditing, methodological design and Python development  
-**Status:** five-source technical pilot completed · INFORM Severity geographic-scope contract validated · methodological review pending  
+**Status:** five-source pilot completed · Core v1 and Cadre exploratory work documented · temporal baseline and operational validation pending  
 **Last updated:** 15 September 2026  
 **Technologies:** Python · pandas · Jupyter · Power BI · DAX · Git · CSV/Parquet · APIs and open data
 
@@ -19,7 +19,7 @@ I designed and developed a methodology to discover, audit, transform and integra
 
 This case demonstrates how I work at the intersection of **operations, data quality, analytics and Python development**: understand the real problem first, formulate explicit rules and automate only what can be validated.
 
-## Current outcome
+## Five-source pilot checkpoint
 
 The pilot methodologically integrates five components—**Kobo, INFORM Risk, WFP Food Prices, INFORM Severity and Network Performance**—and is technically complete in the `develop` branch of the organisation's private repository.
 
@@ -112,24 +112,41 @@ This makes regional context available in Admin2 analysis without creating false 
 
 These figures describe technical coverage and interoperability. The results are descriptive and exploratory: **they do not demonstrate causality, guarantee national representativeness or generate automated alerts**.
 
+## Beyond the pilot: Cadre Harmonisé and statistical judgement
+
+**Methodological update · 2 October 2026.** Subsequent work has documented Core v1, a monthly analytical mart and a separate food-security mart using **Cadre Harmonisé**, the regional framework for classifying acute food insecurity. The candidate outcome is the share of population in crisis or worse (phase 3 and above).
+
+The two marts answer different questions. Operational and survey sources retain their own grains; the food-security analysis uses department × observed Cadre period. A Cadre observation is not copied into every month, and current assessments are separated from projections.
+
+Conflict data produced by **ACLED**, accessed through the public aggregated **HDX HAPI** product, and rainfall data from **CHIRPS** are assessed as prior signals. **WFP prices**, **IOM displacement** and **INFORM Risk** remain relevant, with use conditioned on their temporal and geographic coverage. **INFORM Severity** remains national or regional context without conversion into departmental measurements.
+
+Variables are selected by humanitarian meaning, grain, geographic compatibility, availability before the outcome, coverage and data quality. Exploratory analysis then examines associations, chance and multiple comparisons. Statistical associations support the next question to investigate; they do not establish causality or out-of-sample forecasting performance.
+
+**Current limit:** the candidate outcome still needs operational agreement on horizon, output and action. Temporal baseline modelling and evaluation remain pending; this is not a deployed predictive alerting system.
+
+This public summary describes methodological decisions only. It adds no new internal metrics, organisational code, datasets, beneficiary information or confidential results.
+
+Methodology reference: [Cadre Harmonisé manual, CILSS/AGRHYMET](https://agrhymet.cilss.int/manuel-cadre-harmonise-version3-0/).
+
 ## Methodological architecture
 
+**Current analytical status · 2 October 2026.** The earlier pilot checkpoint is retained above for traceability; the following diagram and table reflect subsequent documented work, without claiming production approval.
+
 ```mermaid
-flowchart LR
-    A["Internal and open sources"] --> B["Bronze: origin and evidence"]
-    B --> C["Silver: cleaning and quality"]
-    C --> D["Five-source pilot"]
-    D -. post-pilot review .-> E["Gold and marts"]
-    E -. future evolution .-> F["Early signals"]
+flowchart TD
+    A["Sources and provenance"] --> B["Source-specific cleaning and controls"]
+    B --> C["Five-source pilot and Core v1"]
+    C --> D["Monthly mart and separate Cadre-period mart"]
+    D -. pending agreement and validation .-> E["Temporal predictive baseline"]
 ```
 
-| Layer | Content | Status on 15 September 2026 |
+| Layer | Content | Current documented status |
 |---|---|---|
-| Bronze | Source files, metadata, provenance and download date | Implemented by source |
-| Silver | Types, cleaning, keys, normalisation and controls | Implemented and validated within the pilot scope |
-| Integration | Contracts, bridges and evidence between compatible sources | Five-source pilot technically complete |
-| Gold | Approved facts, dimensions and aggregations | Pending post-pilot design and methodological review |
-| Marts | Views for analysis, BI or decisions | Future; only on a validated Gold layer |
+| Bronze | Source files, metadata and provenance | Source-specific evidence retained |
+| Silver | Types, keys, cleaning and quality controls | Pilot controls and subsequent secondary-source work documented |
+| Integration | Contracts and relationships between compatible sources | Five-source pilot completed; Core v1 documented |
+| Analytical marts | Monthly mart and separate department × observed Cadre-period mart | Documented for exploration; native grains and assessment/projection distinctions retained |
+| Predictive use | Operational outcome, horizon, baseline and temporal evaluation | Agreement and validation pending; no operational predictive deployment |
 
 ## How it is built
 
@@ -199,7 +216,7 @@ Automated controls include:
 - Network Performance retains its operational and contractual grain; it is not artificially disaggregated to ADM1 or ADM2.
 - Kobo microdata, internal PBIX files, credentials and sensitive results are not published.
 - The pilot is not presented as an operational early-warning system or a completed predictive model.
-- Gold construction and the addition of a sixth source are postponed until grains, keys, aggregations, geographic bridges and semantics have been reviewed.
+- Subsequent Core v1 and Cadre work is described separately from this pilot checkpoint; source-specific grains and semantics remain explicit.
 
 ## Privacy and project ownership
 
@@ -218,11 +235,13 @@ The personal publication is limited to methodology, architecture, aggregated res
 - [x] Create and execute the seven reproducible methodological notebooks.
 - [x] Pass the 15 final `integration_analysis` tests and close the pilot in `develop`.
 - [ ] Obtain methodological review from the supervisors.
-- [ ] Decide which analytical product and operational decisions Core v1 should support.
-- [ ] Design the post-pilot architecture and consolidate common dimensions, facts, keys and bridges.
-- [ ] Build Gold and analytical marts once the semantics have been validated.
-- [ ] Prioritise the next source, most likely Cadre Harmonisé/IPC.
+- [ ] Agree the operational use, forecast horizon and output for the candidate food-security outcome.
+- [x] Document Core v1, common dimensions, facts, keys and controlled bridges.
+- [x] Document the monthly analytical mart and the separate department–Cadre-period food-security mart.
+- [x] Integrate Cadre Harmonisé and document exploratory analysis with prior conflict and rainfall signals.
 - [ ] Progressively incorporate other compatible sources without rebuilding the completed ETLs.
+
+- [ ] Execute a temporal baseline and evaluate performance on unseen periods before discussing predictive alerts.
 
 ## What this case demonstrates
 
