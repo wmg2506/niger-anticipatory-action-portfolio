@@ -9,7 +9,7 @@
 **Autora:** Marta González Vázquez  
 **Contexto:** prácticas en Acción contra el Hambre España · Transformación Digital  
 **Rol:** análisis de datos, auditoría, diseño metodológico y desarrollo Python  
-**Estado:** piloto técnico de cinco fuentes cerrado · contrato de alcance geográfico de INFORM Severity validado · revisión metodológica pendiente  
+**Estado:** piloto de cinco fuentes cerrado · Core v1 y análisis exploratorio Cadre documentados · baseline temporal y validación operativa pendientes  
 **Última actualización:** 15 de septiembre de 2026  
 **Tecnologías:** Python · pandas · Jupyter · Power BI · DAX · Git · CSV/Parquet · APIs y datos abiertos
 
@@ -19,7 +19,7 @@ Diseñé y desarrollé una metodología para descubrir, auditar, transformar e i
 
 Este caso demuestra mi forma de trabajar en la intersección entre **operaciones, calidad de datos, analítica y desarrollo Python**: comprender primero el problema real, formular reglas explícitas y automatizar únicamente aquello que puede validarse.
 
-## Resultado actual
+## Checkpoint del piloto de cinco fuentes
 
 El piloto integra metodológicamente cinco componentes —**Kobo, INFORM Risk, WFP Food Prices, INFORM Severity y Network Performance**— y está cerrado técnicamente en la rama `develop` del repositorio corporativo.
 
@@ -112,24 +112,41 @@ Esto permite utilizar el contexto regional en análisis Admin2 sin crear una fal
 
 Las cifras expresan cobertura e interoperabilidad técnica. Los resultados son descriptivos y exploratorios: **no demuestran causalidad, no garantizan representatividad nacional y no generan alertas automáticas**.
 
+## Después del piloto: Cadre Harmonisé y criterio estadístico
+
+**Actualización metodológica · 2 de octubre de 2026.** El trabajo posterior documenta Core v1, un mart mensual y un mart de seguridad alimentaria separado con **Cadre Harmonisé**, el marco regional de clasificación de la inseguridad alimentaria aguda. El resultado candidato es la proporción de población en crisis o peor (fase 3 o superior).
+
+Los dos marts responden a preguntas distintas. Las fuentes operacionales y de encuesta conservan su propio grano; el análisis alimentario utiliza departamento × periodo Cadre observado. Una observación Cadre no se copia a cada mes, y las evaluaciones actuales se separan de las proyecciones.
+
+Se evalúan señales anteriores de conflicto producidas por **ACLED**, obtenidas mediante el producto público agregado **HDX HAPI**, y lluvia de **CHIRPS**. Los **precios WFP**, el **desplazamiento IOM** e **INFORM Risk** siguen siendo relevantes, con uso condicionado por su cobertura temporal y territorial. **INFORM Severity** aporta contexto nacional o regional sin convertirse en mediciones departamentales.
+
+Las variables se seleccionan por sentido humanitario, grano, compatibilidad geográfica, disponibilidad anterior al resultado, cobertura y calidad. Después se exploran asociaciones, azar y comparaciones múltiples. Las asociaciones estadísticas ayudan a formular la siguiente pregunta; no demuestran causalidad ni rendimiento predictivo fuera de muestra.
+
+**Límite actual:** falta acordar operativamente el horizonte, la salida y la acción asociados al objetivo candidato. El baseline temporal y su evaluación siguen pendientes; no es un sistema predictivo de alertas desplegado.
+
+Este resumen público explica decisiones metodológicas. No añade métricas internas nuevas, código de la organización, datasets, información de beneficiarios ni resultados confidenciales.
+
+Referencia metodológica: [Manual Cadre Harmonisé, CILSS/AGRHYMET](https://agrhymet.cilss.int/manuel-cadre-harmonise-version3-0/).
+
 ## Arquitectura metodológica
 
+**Estado analítico actual · 2 de octubre de 2026.** El checkpoint anterior del piloto se conserva arriba para trazabilidad; el diagrama y la tabla siguientes reflejan el trabajo posterior documentado, sin afirmar aprobación para producción.
+
 ```mermaid
-flowchart LR
-    A["Fuentes internas y abiertas"] --> B["Bronze: origen y evidencia"]
-    B --> C["Silver: limpieza y calidad"]
-    C --> D["Piloto de cinco fuentes"]
-    D -. revisión postpiloto .-> E["Gold y marts"]
-    E -. evolución futura .-> F["Señales tempranas"]
+flowchart TD
+    A["Fuentes y procedencia"] --> B["Limpieza y controles por fuente"]
+    B --> C["Piloto de cinco fuentes y Core v1"]
+    C --> D["Mart mensual y mart separado por periodo Cadre"]
+    D -. pendiente de acuerdo y validación .-> E["Baseline predictivo temporal"]
 ```
 
-| Capa | Contenido | Estado al 15/09/2026 |
+| Capa | Contenido | Estado actual documentado |
 |---|---|---|
-| Bronze | Originales, metadatos, procedencia y fecha de descarga | Implementada por fuente |
-| Silver | Tipos, limpieza, claves, normalización y controles | Implementada y validada en el alcance del piloto |
-| Integración | Contratos, puentes y evidencias entre fuentes compatibles | Piloto de cinco fuentes cerrado técnicamente |
-| Gold | Hechos, dimensiones y agregaciones aprobadas | Pendiente de diseño postpiloto y revisión metodológica |
-| Marts | Vistas para análisis, BI o decisiones | Futuro; solo sobre una Gold validada |
+| Bronze | Originales, metadatos y procedencia | Evidencia conservada por fuente |
+| Silver | Tipos, claves, limpieza y controles de calidad | Controles del piloto y trabajo posterior con fuentes secundarias documentados |
+| Integración | Contratos y relaciones entre fuentes compatibles | Piloto de cinco fuentes cerrado; Core v1 documentado |
+| Marts analíticos | Mart mensual y mart separado por departamento × periodo Cadre observado | Documentados para exploración; preservan granos y diferencias entre evaluación y proyección |
+| Uso predictivo | Objetivo operativo, horizonte, baseline y evaluación temporal | Acuerdo y validación pendientes; sin despliegue predictivo operativo |
 
 ## Cómo está construido
 
@@ -199,7 +216,7 @@ Entre los controles automatizados se encuentran:
 - Network Performance conserva su grano operativo y contractual; no se desagrega artificialmente a ADM1 o ADM2.
 - Los microdatos Kobo, PBIX internos, credenciales y resultados sensibles no se publican.
 - El piloto no se presenta como un sistema de alerta temprana operativo ni como un modelo predictivo terminado.
-- La construcción de Gold y la incorporación de una sexta fuente se posponen hasta revisar granos, claves, agregaciones, puentes geográficos y semántica.
+- El trabajo posterior con Core v1 y Cadre se describe por separado de este checkpoint del piloto; los granos y la semántica de cada fuente siguen explícitos.
 
 ## Privacidad y propiedad del proyecto
 
@@ -218,11 +235,13 @@ La publicación personal se limita a metodología, arquitectura, resultados agre
 - [x] Crear y ejecutar los siete notebooks metodológicos reproducibles.
 - [x] Superar las 15 pruebas finales de `integration_analysis` y cerrar el piloto en `develop`.
 - [ ] Obtener la revisión metodológica de los tutores.
-- [ ] Decidir qué producto analítico y qué decisiones operativas debe soportar Core v1.
-- [ ] Diseñar la arquitectura postpiloto y consolidar dimensiones, hechos, claves y puentes comunes.
-- [ ] Construir Gold y marts analíticos cuando la semántica esté validada.
-- [ ] Priorizar la siguiente fuente, previsiblemente Cadre Harmonisé/IPC.
+- [ ] Acordar uso operativo, horizonte y salida del resultado alimentario candidato.
+- [x] Documentar Core v1, dimensiones, hechos, claves y puentes controlados.
+- [x] Documentar el mart mensual y el mart alimentario separado por departamento y periodo Cadre.
+- [x] Integrar Cadre Harmonisé y documentar EDA con señales previas de conflicto y lluvia.
 - [ ] Incorporar progresivamente otras fuentes compatibles sin rehacer los ETL ya terminados.
+
+- [ ] Ejecutar un baseline temporal y evaluar periodos no vistos antes de hablar de alertas predictivas.
 
 ## Qué demuestra este caso
 
